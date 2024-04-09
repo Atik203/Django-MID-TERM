@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
+<h3 class="text-center my-4">Welcome {{user}}</h3>
+
+<h5 class="text-center my-2">
+  <a class="btn btn-danger" href="{% url 'edit_profile' %}">Edit Profile</a>
+</h5>
+<h4 class="fw-bold text-center my-3">Your Orders</h4>
+<div
+  class="container mt-5 mx-auto row align-items-center justify-content-center gap-4 mb-5"
+>
+  {% for order in orders %}
+
+  <div class="card col-3" style="width: 18rem">
+    <img src="{{order.car.image.url}}" class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">{{order.car.name}}</h5>
+      <p class="card-text">Brand: {{order.car.brand.name}}</p>
+      <p class="card-text">Price: {{order.car.price}}$</p>
+      <p class="card-text">Oder Date: {{order.date_ordered|date:"d D M Y"}}</p>
+      <a href="{% url 'car_detail' order.car.id %}" class="btn btn-secondary"
+        >View Details</a
+      >
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+{% endblock %}

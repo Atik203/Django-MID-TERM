@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+
+<div class="container d-flex align-items-center justify-content-center gap-5">
+  <div>
+    <h1 class="fw-bold text-info">CAR CHANGING IS A BIG DEAL</h1>
+    <p class="text-black fw-semibold">
+      Carwow is an online platform for buying a new car or selling your old one!
+      We bring you great offers from thousands of trusted partners so you can
+      buy or sell your car in just a few clicks. No haggling and no fees.
+    </p>
+  </div>
+  <div>
+    <img
+      src="{% static '../static/images/getImage.webp' %}"
+      class="img-fluid"
+      alt=""
+    />
+  </div>
+</div>
+
+<h3 class="text-center text-info fw-bold my-4">OUR BRANDS</h3>
+
+<div class="d-flex align-items-center my-6 justify-content-around">
+  {% for brand in brands %}
+  <a
+    class="btn btn-outline-info fw-bold fs-5 text-black border-2"
+    href="{% url 'brand_wise_cars' brand.slug %}"
+    >{{brand.name}}</a
+  >
+  {% endfor %}
+</div>
+<div
+  class="container mt-5 mx-auto row align-items-center justify-content-center gap-4"
+>
+  <h4 class="ms-5">Total Cars Found: {{cars|length}}</h4>
+  {% for car in cars %}
+
+  <div class="card col-3" style="width: 18rem">
+    <img src="{{car.image.url}}" class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">{{car.name}}</h5>
+      <p class="card-text">Brand: {{car.brand.name}}</p>
+      <p class="card-text">Price: {{car.price}}$</p>
+      <a href="{% url 'car_detail' car.id %}" class="btn btn-secondary"
+        >View Details</a
+      >
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+{% endblock %}
